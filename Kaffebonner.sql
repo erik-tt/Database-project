@@ -8,18 +8,23 @@ CREATE TABLE Bruker (
 
 CREATE TABLE Kaffesmak (
    SmakId    INTEGER NOT NULL,
-   Notater     VARCHAR(30),
+   Notater   VARCHAR(30),
    Dato     VARCHAR(30),
    Poeng     INTEGER,
    BrukerId INTEGER NOT NULL,
+   KaffeId INTEGER NOT NULL,
    CONSTRAINT Kaffesmak_PK PRIMARY KEY (SmakId),
-   CONSTRAINT Kaffesmak_FK FOREIGN KEY (BrukerId) REFERENCES Bruker(BrukerId)
+   CONSTRAINT Kaffesmak_FK1 FOREIGN KEY (BrukerId) REFERENCES Bruker(BrukerId)
       ON UPDATE CASCADE
-      ON DELETE NO ACTION);
+      ON DELETE NO ACTION
+   CONSTRAINT Kaffesmak_FK2 FOREIGN KEY (KaffeId) REFERENCES Kaffe(KaffeId)
+      ON UPDATE CASCADE
+      ON DELETE NO ACTION );
 
 CREATE TABLE Kaffe (
    KaffeId    INTEGER NOT NULL,
    Brenningsgrad  VARCHAR(30),
+   Dato VARCHAR(30),
    Navn VARCHAR(30),
    Beskrivelse VARCHAR(30),
    Kilopris INTEGER(10),
@@ -84,24 +89,4 @@ CREATE TABLE DyrkesAv(
    CONSTRAINT DyrkesAv_FK2 FOREIGN Key (GaardId) REFERENCES Art(Navn)
             ON UPDATE CASCADE,
             ON DELETE CASCADE
-)
-
-CREATE TABLE Art(
-   Navn VARCHAR(30) NOT NULL,
-   CONSTRAINT Art_PK PRIMARY Key (Navn)
-)
-
-CREATE TABLE Region(
-    Landskode INTEGER NOT NULL,
-    Navn VARCHAR(30) NOT NULL,
-    CONSTRAINT Region_PK PRIMARY Key (Landskode, Navn),
-   CONSTRAINT Region_FK FOREIGN Key (Landskode) REFERENCES Land(Landskode)
-            ON UPDATE CASCADE,
-            ON DELETE CASCADE,
-)
-
-CREATE TABLE Land(
-    Landskode INTEGER NOT NULL,
-    Navn VARCHAR(30) NOT NULL,
-    CONSTRAINT Region_PK PRIMARY Key (Landskode, Navn)
 )
