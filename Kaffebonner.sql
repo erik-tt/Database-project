@@ -1,13 +1,13 @@
 CREATE TABLE Bruker (
-   BrukerId    INTEGER NOT NULL,
-   Fornavn   VARCHAR(30),
-   Etternavn   VARCHAR(30),
-   Epost   VARCHAR(30),
-   Passord   VARCHAR(30),
+   BrukerId    INTEGER NOT NULL UNIQUE,
+   Fornavn   VARCHAR(30) NOT NULL,
+   Etternavn   VARCHAR(30) NOT NULL,
+   Epost   VARCHAR(30) NOT NULL UNIQUE,
+   Passord   VARCHAR(30) NOT NULL,
    CONSTRAINT Bruker_PK PRIMARY KEY (BrukerId));
 
 CREATE TABLE Kaffesmak (
-   SmakId    INTEGER NOT NULL,
+   SmakId    INTEGER NOT NULL UNIQUE,
    Notater   VARCHAR(max),
    Poeng     INTEGER,
    Dag     INTEGER(2),
@@ -24,7 +24,7 @@ CREATE TABLE Kaffesmak (
       ON DELETE NO ACTION );
 
 CREATE TABLE Kaffe (
-   KaffeId    INTEGER NOT NULL,
+   KaffeId    INTEGER NOT NULL UNIQUE,
    Brenningsgrad  VARCHAR(30),
    Dag     INTEGER(2),
    Maaned  INTEGER(2),
@@ -43,14 +43,14 @@ CREATE TABLE Kaffe (
        ON DELETE NO ACTION);
 
 CREATE TABLE Kaffebrenneri (
-   BrenneriId   INTEGER NOT NULL,
+   BrenneriId   INTEGER NOT NULL UNIQUE,
    Navn    VARCHAR(30),
    Sted VARCHAR(30),
    CONSTRAINT KaffeBrenneri_PK PRIMARY Key (BrenneriId)
 )
 
 CREATE TABLE Kaffeparti (
-   PartiId    INTEGER NOT NULL,
+   PartiId    INTEGER NOT NULL UNIQUE,
    Aar INTEGER(4), 
    BetalingUsd INTEGER(7),
    GaardId INTEGER NOT NULL,
@@ -65,14 +65,14 @@ CREATE TABLE Kaffeparti (
 
 )
 CREATE TABLE Foredlingsmetode(
-   MetodeId INTEGER NOT NUll,
+   MetodeId INTEGER NOT NUll UNIQUE,
    Navn VARCHAR(30),
    Beskrivelse VARCHAR(max),
    CONSTRAINT Foredlingsmetode_PK PRIMARY Key (MetodeId)
 
 )
 CREATE TABLE Gaard (
-   GaardId INTEGER NOT NULL,
+   GaardId INTEGER NOT NULL UNIQUE,
    Moh INTEGER(4),
    Navn VARCHAR(30),
    Land VARCHAR(30) NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE Gaard (
 )
 
 CREATE TABLE Kaffebonne (
-   BonneId INTEGER NOT NULL,
+   BonneId INTEGER NOT NULL UNIQUE,
    Art VARCHAR(30) NOT NULL,
    CONSTRAINT Kaffebonne_PK PRIMARY Key (BonneId),
    CONSTRAINT Kaffebonne_FK FOREIGN Key (Artnavn) REFERENCES Art(Navn)
