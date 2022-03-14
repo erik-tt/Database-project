@@ -8,7 +8,7 @@ CREATE TABLE Bruker (
 
 CREATE TABLE Kaffesmak (
    SmakId    INTEGER NOT NULL UNIQUE,
-   Notater   VARCHAR(max),
+   Notater   VARCHAR(MAX),
    Poeng     INTEGER,
    Dag     INTEGER(2),
    Maaned  INTEGER(2),
@@ -30,7 +30,7 @@ CREATE TABLE Kaffe (
    Maaned  INTEGER(2),
    Aar INTEGER(4),
    Navn VARCHAR(30),
-   Beskrivelse VARCHAR(max),
+   Beskrivelse VARCHAR(MAX),
    Kilopris INTEGER(10),
    PartiId  INTEGER NOT NULL,
    BrenneriId  INTEGER NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE Kaffeparti (
 CREATE TABLE Foredlingsmetode(
    MetodeId INTEGER NOT NUll UNIQUE,
    Navn VARCHAR(30),
-   Beskrivelse VARCHAR(max),
+   Beskrivelse VARCHAR(MAX),
    CONSTRAINT Foredlingsmetode_PK PRIMARY Key (MetodeId)
 
 )
