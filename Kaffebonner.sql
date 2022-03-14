@@ -102,26 +102,3 @@ CREATE TABLE DyrkesAv(
             ON DELETE CASCADE
 );
 
-
-
-INSERT INTO Bruker VALUES (1, 'Per', 'Olsen', 'Per.olsen@gmail.com', 'passord123');
-INSERT INTO Kaffebrenneri VALUES (1, 'Jacobsen & Svart', 'Trondheim');
-INSERT INTO Kaffebonne VALUES (1, 'arabica');
-INSERT INTO Gaard VALUES (1, 1500, 'Nombre de Dios', 'El Salvador', 'Santa Ana');
-INSERT INTO Foredlingsmetode VALUES (1, 'bærtørket Bourbon', 'vaskes i elva' );
-INSERT INTO Kaffeparti VAlUES (1, 2021, 1, 1, 8 );
-INSERT INTO Kaffeparti VALUES(2, 2022, 1, 1, 9);
-INSERT INTO Kaffe VALUES (1, 'Lysbrent', 20, 01, 2022, 'Vinterkaffe 2022', 'En velsmakende og kompleks kaffe for
-mørketiden', 600, 1, 1 );
-INSERT INTO Kaffesmak VALUES (1, 'Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!»', 
-10, 01, 10, 2022, 1, 1 );
-INSERT INTO Kaffe VALUES (2, 'Medium', 10, 01, 2022, 'Friele', 'Denne kaffen er floral og god', 800, 2, 1);
-INSERT INTO Kaffe VALUES (3, 'Medium', 10, 01, 2022, 'Friele', 'Denne kaffen er floral og god', 800, 3, 1);
-INSERT INTO Kaffesmak VALUES(2, 'Ekstremt floral', 8, 30, 01, 2022, 1, 2);
-INSERT INTO Gaard VALUES (2, 1500, 'Nombre de Dios', 'Rwanda', 'Santa Ana');
-INSERT INTO Gaard VALUES (3, 1500, 'Nombre de Dios', 'Colombia', 'Santa Ana');
-INSERT INTO Foredlingsmetode VALUES (2, 'vasket', 'gir god smak');
-INSERT INTO KaffeParti VALUES (3, 2022, 9, 2, 1);
-INSERT INTO KaffeParti VALUES (4, 2022, 10, 3, 1);
-INSERT INTO KaffeParti VALUES (5, 2022, 9, 2, 2);
-
