@@ -8,7 +8,7 @@ CREATE TABLE Bruker (
 
 CREATE TABLE Kaffesmak (
    SmakId    INTEGER NOT NULL UNIQUE,
-   Notater   VARCHAR(MAX),
+   Notater   VARCHAR(8000),
    Poeng     INTEGER,
    Dag     INTEGER(2),
    Maaned  INTEGER(2),
@@ -30,7 +30,7 @@ CREATE TABLE Kaffe (
    Maaned  INTEGER(2),
    Aar INTEGER(4),
    Navn VARCHAR(30),
-   Beskrivelse VARCHAR(MAX),
+   Beskrivelse VARCHAR(8000),
    Kilopris INTEGER(10),
    PartiId  INTEGER NOT NULL,
    BrenneriId  INTEGER NOT NULL,
@@ -47,12 +47,12 @@ CREATE TABLE Kaffebrenneri (
    Navn    VARCHAR(30),
    Sted VARCHAR(30),
    CONSTRAINT KaffeBrenneri_PK PRIMARY Key (BrenneriId)
-)
+);
 
 CREATE TABLE Kaffeparti (
    PartiId    INTEGER NOT NULL UNIQUE,
    Aar INTEGER(4), 
-   BetalingUsd INTEGER(7),
+   BetalingUSD INTEGER(7),
    GaardId INTEGER NOT NULL,
    MetodeId INTEGER NOT NULL,
    CONSTRAINT Kaffeparti_PK PRIMARY Key (PartiId),
@@ -61,16 +61,16 @@ CREATE TABLE Kaffeparti (
        ON DELETE NO ACTION,
    CONSTRAINT Kaffeparti_FK2 FOREIGN Key (MetodeId) REFERENCES Foredlingsmetode(MetodeId)
        ON UPDATE CASCADE
-       ON DELETE NO ACTION,
+       ON DELETE NO ACTION
 
-)
+);
 CREATE TABLE Foredlingsmetode(
    MetodeId INTEGER NOT NUll UNIQUE,
    Navn VARCHAR(30),
-   Beskrivelse VARCHAR(MAX),
+   Beskrivelse VARCHAR(8000),
    CONSTRAINT Foredlingsmetode_PK PRIMARY Key (MetodeId)
 
-)
+);
 CREATE TABLE Gaard (
    GaardId INTEGER NOT NULL UNIQUE,
    Moh INTEGER(4),
@@ -78,17 +78,17 @@ CREATE TABLE Gaard (
    Land VARCHAR(30) NOT NULL,
    Region VARCHAR(30) NOT NULL,
    CONSTRAINT Gaard_PK PRIMARY Key (GaardId)
-)
+);
 
 CREATE TABLE Kaffebonne (
    BonneId INTEGER NOT NULL UNIQUE,
    Art VARCHAR(30) NOT NULL,
    CONSTRAINT Kaffebonne_PK PRIMARY Key (BonneId),
-   CONSTRAINT Kaffebonne_FK FOREIGN Key (Artnavn) REFERENCES Art(Navn)
+   CONSTRAINT Kaffebonne_FK FOREIGN Key (Art) REFERENCES Art(Navn)
             ON UPDATE CASCADE
             ON DELETE NO ACTION
 
-)
+);
 
 CREATE TABLE DyrkesAv(
    BonneId INTEGER NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE DyrkesAv(
    CONSTRAINT DyrkesAv_FK2 FOREIGN Key (GaardId) REFERENCES Gaard(GaardId)
             ON UPDATE CASCADE
             ON DELETE CASCADE
-)
+);
 
 
 
@@ -110,7 +110,18 @@ INSERT INTO Kaffebonne VALUES (1, 'arabica');
 INSERT INTO Gaard VALUES (1, 1500, 'Nombre de Dios', 'El Salvador', 'Santa Ana');
 INSERT INTO Foredlingsmetode VALUES (1, 'bærtørket Bourbon', 'vaskes i elva' );
 INSERT INTO Kaffeparti VAlUES (1, 2021, 1, 1, 8 );
+INSERT INTO Kaffeparti VALUES(2, 2022, 1, 1, 9);
 INSERT INTO Kaffe VALUES (1, 'Lysbrent', 20, 01, 2022, 'Vinterkaffe 2022', 'En velsmakende og kompleks kaffe for
 mørketiden', 600, 1, 1 );
 INSERT INTO Kaffesmak VALUES (1, 'Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!»', 
-10, NULL, NULL, NULL, 1, 1 );
+10, 01, 10, 2022, 1, 1 );
+INSERT INTO Kaffe VALUES (2, 'Medium', 10, 01, 2022, 'Friele', 'Denne kaffen er floral og god', 800, 2, 1);
+INSERT INTO Kaffe VALUES (3, 'Medium', 10, 01, 2022, 'Friele', 'Denne kaffen er floral og god', 800, 3, 1);
+INSERT INTO Kaffesmak VALUES(2, 'Ekstremt floral', 8, 30, 01, 2022, 1, 2);
+INSERT INTO Gaard VALUES (2, 1500, 'Nombre de Dios', 'Rwanda', 'Santa Ana');
+INSERT INTO Gaard VALUES (3, 1500, 'Nombre de Dios', 'Colombia', 'Santa Ana');
+INSERT INTO Foredlingsmetode VALUES (2, 'vasket', 'gir god smak');
+INSERT INTO KaffeParti VALUES (3, 2022, 9, 2, 1);
+INSERT INTO KaffeParti VALUES (4, 2022, 10, 3, 1);
+INSERT INTO KaffeParti VALUES (5, 2022, 9, 2, 2);
+
