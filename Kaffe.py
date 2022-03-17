@@ -43,11 +43,14 @@ def coffee_stats():
     print("""Velkommen til kaffestikk.
     Her kan du hente ut statestikk om din og andre sitt kaffekonsum""")
 
-    personal_stats = input('Statestikk om eget konsum (j/n)')
+    choice = input('Personlig eller global statestikk om kaffekonsum? (p/g)')
     
-    if (personal_stats == 'j'):
-        con.execute("SELECT * FROM bruker")
+    if (choice == 'p'):
+        cursor.execute("SELECT Fornavn, Etternavn, COUNT(kaffe.kaffeId) FROM Bruker NATURAL JOIN Kaffesmak INNER JOIN Kaffe ON (kaffesmak.kaffeId == kaffe.kaffeId) WHERE BrukerId = ?", (current_user,))
+        data = cursor.fetchall
         
+
+
 
 
 def filter():
@@ -102,6 +105,7 @@ def coffee_tastying():
 def main():
     login()
     menu()
+    con.close()
 
 
 if __name__ == "__main__":
