@@ -97,8 +97,11 @@ def coffee_tastying():
     coffee_tastying_year = int(input('Smaksår (yyyy): '))
     cursor.execute("SELECT MAX(SmakId) FROM KaffeSmak")
     lastId = cursor.fetchone()[0] +1
-    cursor.execute("SELECT KaffeId FROM Kaffe WHERE Navn = ? ", (coffee_name,))
+    cursor.execute("SELECT BrenneriId FROM Kaffebrenneri WHERE Navn = ?", (coffee_distillery,))
+    coffee_distillery_id = cursor.fetchone()[0]
+    cursor.execute("SELECT KaffeId FROM Kaffe WHERE Navn = ? AND BrenneriId = ? ", (coffee_name, coffee_distillery_id,))
     coffee_id = cursor.fetchone()[0]
+  
     cursor.execute('''INSERT INTO kaffesmak(SmakId, Notater, Poeng, Dag, Maaned, Aar, BrukerId, KaffeId) VALUES (?,?, ?,?,?,?,?,?)''',(lastId, coffee_description, coffee_score, coffee_tastying_day, coffee_tastying_month, coffee_tastying_year, current_user, coffee_id))
     con.commit()
 
