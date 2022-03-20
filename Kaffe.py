@@ -1,10 +1,18 @@
 from distutils.command.sdist import sdist
+from re import L
 import sqlite3
 from tkinter import Menu
 
-
+#global variables:
 con = sqlite3.connect("Kaffe.db")
 cursor = con.cursor()
+
+#Product backlog:
+#User story 1 completed
+#User story 2 completed
+#User story 3 completed
+#User story 4 NOT completed
+#User story 5 NOT completed
 
 
 #The home menu. It shows you the available actions and how to access them.
@@ -12,9 +20,9 @@ def menu():
 
     info = """Velkommen, velg et alternativ fra listen under
     1. Legg ut ett kaffeinnlegg (1)
-    2. Filtrer kaffeinnlegg (2)
-    3. Personlig kaffestikk (3)
-    4. Logg ut (4)"""
+    2. Filtrer kaffeinnlegg     (2)
+    3. Personlig kaffestikk     (3)
+    4. Logg ut                  (4)"""
 
     while(True):
         print(info)
@@ -34,21 +42,60 @@ def menu():
             break
 
         else:
-            print ('Ikke gyldig svar. Prøv igjen.')
+            print ('Ikke gyldig svar. Prøv igjen. \n')
 
 
 
 
 def coffee_stats():
-    print("""Velkommen til kaffestikk.
-    Her kan du hente ut statestikk om din og andre sitt kaffekonsum""")
-
-    choice = input('Personlig eller global statestikk om kaffekonsum? (p/g)')
     
-    if (choice == 'p'):
-        cursor.execute("SELECT Fornavn, Etternavn, COUNT(kaffe.kaffeId) FROM Bruker NATURAL JOIN Kaffesmak INNER JOIN Kaffe ON (kaffesmak.kaffeId == kaffe.kaffeId) WHERE BrukerId = ?", (current_user,))
-        data = cursor.fetchall
+    seperator = "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+
+    print(seperator)
+    print("\nVelkommen til kaffestikk\nHer kan du hente ut statestikk om din og andre sitt kaffekonsum \n")
+
+    alt1 = "- Liste over hvilke av våre brukere som har smakt flest unike kaffer i et bestemt år (1)"
+    alt2 = "- Kaffer som gir deg mest for pengene                                                (2)"
+    
+    choice = input("Velg et alternativ fra menyen: \n" + alt1 + "\n" + alt2 + "\n: ")
+    
+    
+    if (choice == '1'):
+        year = int(input("Hvilket år vil du se statistikk fra? "))
+
+        #Users tory 2
+        cursor.execute("SELECT Fornavn, Etternavn, COUNT(DISTINCT kaffe.kaffeId) AS AntallUnikeKaffer FROM Bruker NATURAL JOIN Kaffesmak INNER JOIN Kaffe ON (kaffesmak.kaffeId == kaffe.kaffeId) WHERE Kaffesmak.Aar = (?) ORDER BY AntallUnikeKaffer DESC", (year,))
+        data1 = cursor.fetchall()
+        print ("\nEn tabell over antall unike kaffer smakt i " + str(year) +": \n")
+        print("Fornavn | Etternavn | Antall unike kaffer" )
         
+        for row in data:
+            print(str(row[0]) + ' | ' + str(row[1]) + ' | ' + str(row[2]))
+        
+        print ("\n")
+
+    elif (choice == "2"):
+
+        #User story 3
+        cursor.execute("SELECT Kaffebrenneri.navn AS Brennerinavn, Kaffe.navn AS Kaffenavn, Kilopris, AVG(Poeng) AS Gjennomsnittscore FROM Kaffesmak INNER JOIN Kaffe ON (Kaffesmak.kaffeId = Kaffe.KaffeId) INNER JOIN Kaffebrenneri ON (Kaffe.BrenneriId = Kaffebrenneri.BrenneriId) ORDER BY Gjennomsnittscore DESC, Kilopris ASC")
+        data = cursor.fetchall()
+        
+        print("\nEn liste med brennerinavn, kaffenavn, pris og gjennomsnittscore for hver kaffe:\n")
+
+        print("Brennnerinavn | Kaffenavn | Kilopris | Gjennomsnittscore")
+        for row in data:
+            print(str(row[0]) + ' | ' + str(row[1]) + ' | ' + str(row[2]) + ' | ' + str(row[3]))
+        
+        print("\n")
+    
+    elif (choice == "3"):
+        print("TODO")
+    
+    else:
+        print("Det var ikke et alternativ. Skriv inn på nytt")
+
+    print(seperator)
+    
 
 
 
