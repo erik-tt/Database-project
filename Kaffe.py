@@ -48,6 +48,7 @@ def menu():
 
 
 def coffee_stats():
+    #Printen burde formateres bedre
     
     seperator = "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
 
@@ -64,12 +65,12 @@ def coffee_stats():
         year = int(input("Hvilket år vil du se statistikk fra? "))
 
         #Users tory 2
-        cursor.execute("SELECT Fornavn, Etternavn, COUNT(DISTINCT kaffe.kaffeId) AS AntallUnikeKaffer FROM Bruker NATURAL JOIN Kaffesmak INNER JOIN Kaffe ON (kaffesmak.kaffeId == kaffe.kaffeId) WHERE Kaffesmak.Aar = (?) ORDER BY AntallUnikeKaffer DESC", (year,))
+        cursor.execute("SELECT Fornavn, Etternavn, COUNT(DISTINCT Kaffe.kaffeId) AS AntallUnikeKaffer FROM Bruker NATURAL JOIN Kaffesmak INNER JOIN Kaffe ON (kaffesmak.kaffeId == kaffe.kaffeId) WHERE Kaffesmak.Aar = ? ORDER BY AntallUnikeKaffer DESC", (year,))
         data1 = cursor.fetchall()
         print ("\nEn tabell over antall unike kaffer smakt i " + str(year) +": \n")
         print("Fornavn | Etternavn | Antall unike kaffer" )
         
-        for row in data:
+        for row in data1:
             print(str(row[0]) + ' | ' + str(row[1]) + ' | ' + str(row[2]))
         
         print ("\n")
@@ -101,7 +102,30 @@ def coffee_stats():
 
 
 def filter():
-    todo = 'todo'
+     
+    seperator = "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+
+    print(seperator)
+    print("\nVelkommen til filtering\nHer kan du filtrere etter spesifikke beskrivelser for kaffer eller notiser av andre \n")
+    choice = input("\nSkriv inn hvilket ord du ønsker å finne\n")
+    cursor.execute("""SELECT DISTINCT Kaffebrenneri.Navn AS Brennerinavn,  Kaffe.Navn AS Kaffenavn
+                   FROM Kaffe INNER JOIN KaffeSmak ON Kaffe.KaffeId = KaffeSmak.KaffeId
+                   INNER JOIN KaffeBrenneri ON KaffeBrenneri.BrenneriId = Kaffe.BrenneriId
+                   WHERE (Notater LIKE ? OR Beskrivelse LIKE ?)""", (choice, choice,))
+
+    data = cursor.fetchall()
+    print(data)
+
+    #Får ikke ut dataen, tipper det er en feil i linjen med WHERE og LIKE
+    print("\nEn liste med brennerinavn og kaffenavn for hver kaffe:\n")
+
+    print("Brennnerinavn | Kaffenavn \n")
+    for row in data:
+        print(str(row[0]) + ' | ' + str(row[1]))
+        
+        print("\n")
+
+    
 
 
 def login():
