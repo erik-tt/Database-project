@@ -64,9 +64,15 @@ def coffee_stats():
     if (choice == '1'):
         year = int(input("Hvilket år vil du se statistikk fra? "))
 
-        #Users tory 2
-        cursor.execute("SELECT Fornavn, Etternavn, COUNT(DISTINCT Kaffe.kaffeId) AS AntallUnikeKaffer FROM Bruker NATURAL JOIN Kaffesmak INNER JOIN Kaffe ON (kaffesmak.kaffeId == kaffe.kaffeId) WHERE Kaffesmak.Aar = ? ORDER BY AntallUnikeKaffer DESC", (year,))
+        #User story 2
+        cursor.execute("""
+        SELECT Fornavn, Etternavn, COUNT(DISTINCT Kaffe.kaffeId) AS AntallUnikeKaffer 
+        FROM Bruker NATURAL JOIN Kaffesmak 
+        INNER JOIN Kaffe ON (kaffesmak.kaffeId == kaffe.kaffeId) 
+        WHERE Kaffesmak.Aar = ? ORDER BY AntallUnikeKaffer DESC""", (year,))
+
         data1 = cursor.fetchall()
+
         print ("\nEn tabell over antall unike kaffer smakt i " + str(year) +": \n")
         print("Fornavn | Etternavn | Antall unike kaffer" )
         
@@ -78,7 +84,12 @@ def coffee_stats():
     elif (choice == "2"):
 
         #User story 3
-        cursor.execute("SELECT Kaffebrenneri.navn AS Brennerinavn, Kaffe.navn AS Kaffenavn, Kilopris, AVG(Poeng) AS Gjennomsnittscore FROM Kaffesmak INNER JOIN Kaffe ON (Kaffesmak.kaffeId = Kaffe.KaffeId) INNER JOIN Kaffebrenneri ON (Kaffe.BrenneriId = Kaffebrenneri.BrenneriId) ORDER BY Gjennomsnittscore DESC, Kilopris ASC")
+        cursor.execute("""
+        SELECT Kaffebrenneri.navn AS Brennerinavn, Kaffe.navn AS Kaffenavn, Kilopris, AVG(Poeng) AS Gjennomsnittscore 
+        FROM Kaffesmak INNER JOIN Kaffe ON (Kaffesmak.kaffeId = Kaffe.KaffeId) 
+        INNER JOIN Kaffebrenneri ON (Kaffe.BrenneriId = Kaffebrenneri.BrenneriId) 
+        ORDER BY Gjennomsnittscore DESC, Kilopris ASC""")
+
         data = cursor.fetchall()
         
         print("\nEn liste med brennerinavn, kaffenavn, pris og gjennomsnittscore for hver kaffe:\n")
@@ -106,8 +117,11 @@ def filter():
     seperator = "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
 
     print(seperator)
+
     print("\nVelkommen til filtering\nHer kan du filtrere etter spesifikke beskrivelser for kaffer eller notiser av andre \n")
-    choice = input("\nSkriv inn hvilket ord du ønsker å finne\n")
+
+    choice = "%" + input("\nSkriv inn hvilket ord du ønsker å finne\n") + "%"
+
     cursor.execute("""SELECT DISTINCT Kaffebrenneri.Navn AS Brennerinavn,  Kaffe.Navn AS Kaffenavn
                    FROM Kaffe INNER JOIN KaffeSmak ON Kaffe.KaffeId = KaffeSmak.KaffeId
                    INNER JOIN KaffeBrenneri ON KaffeBrenneri.BrenneriId = Kaffe.BrenneriId
