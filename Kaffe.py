@@ -2,6 +2,7 @@ from distutils.command.sdist import sdist
 from re import L
 import sqlite3
 from tkinter import Menu
+from warnings import catch_warnings
 
 #global variables:
 con = sqlite3.connect("Kaffe.db")
@@ -19,10 +20,10 @@ cursor = con.cursor()
 def menu():
 
     info = """Velkommen, velg et alternativ fra listen under
-    1. Legg ut ett kaffeinnlegg (1)
-    2. Filtrer kaffeinnlegg     (2)
-    3. Personlig kaffestikk     (3)
-    4. Logg ut                  (4)"""
+    1. Legg ut ett kaffeinnlegg      (1)
+    2. Filtrer kaffeinnlegg          (2)
+    3. Se statistikk om kaffekonsum  (3)
+    4. Logg ut                       (4)"""
 
     while(True):
         print(info)
@@ -100,11 +101,8 @@ def coffee_stats():
         
         print("\n")
     
-    elif (choice == "3"):
-        print("TODO")
-    
     else:
-        print("Det var ikke et alternativ. Skriv inn på nytt")
+        print("Det var ikke et alternativ.")
 
     print(seperator)
     
@@ -135,14 +133,14 @@ def filter():
                    WHERE (Notater LIKE ? OR Beskrivelse LIKE ?)""", (word, word,))
                    
         data = cursor.fetchall()
-        print(data)
         
         print("\nEn liste med brennerinavn og kaffenavn for hver kaffe:\n")
         
-        print("Brennnerinavn | Kaffenavn \n")
+        print("Brennnerinavn | Kaffenavn")
         for row in data:
             print(str(row[0]) + ' | ' + str(row[1]))
             print("\n")
+
 
     elif(choice == "2"):
         #Userstory 5
@@ -179,11 +177,21 @@ def filter():
 def login():
     choice = input('Skriv inn l om du ønsker å logge inn og r om du ønsker å registrere deg \n ')
     if choice == 'l':
-        email = input('E-postadresse: ')
-        password = input('Passord: ')
-        global current_user
-        cursor.execute("SELECT BrukerId FROM Bruker WHERE Epost = ? ", (email,))
-        current_user = cursor.fetchone()[0]
+        state = True
+        while (state):
+            try:
+                email = input('E-postadresse: ')
+                password = input('Passord: ')
+                global current_user
+                cursor.execute("SELECT BrukerId FROM Bruker WHERE Epost = ? ", (email,))
+                current_user = cursor.fetchone()[0]
+                state = False
+            except TypeError:
+                sign_up = input("Not a registered user. Do you want to sign up (y/n)")
+                if(sign_up == 'y'):
+                    state = False
+                    signup()
+
     elif choice == 'r':
         signup()
     else:
@@ -203,6 +211,11 @@ def signup():
     current_user = lastId
     cursor.execute('''INSERT INTO Bruker(BrukerId, Fornavn, Etternavn, Epost, Passord) VALUES (?,?,?,?,?)''',(lastId, firstname, surname, email, password))
     con.commit()
+    print("\n")
+
+#We have to have a restriction on day month and year.
+def validate_date(day, month, year):
+    print("TODO")
 
 
 def coffee_tastying(): 
