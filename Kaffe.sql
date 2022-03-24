@@ -9,7 +9,7 @@ CREATE TABLE Bruker (
 CREATE TABLE Kaffesmak (
    SmakId    INTEGER NOT NULL UNIQUE,
    Notater   VARCHAR(8000),
-   Poeng     INTEGER,
+   Poeng     INTEGER CHECK (Poeng > 0 AND Poeng <= 10),
    Dag     INTEGER(2),
    Maaned  INTEGER(2),
    Aar INTEGER(4),
