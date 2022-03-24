@@ -102,3 +102,44 @@ CREATE TABLE DyrkesAv(
             ON DELETE CASCADE
 );
 
+INSERT INTO Bruker VALUES (1, 'Test', 'Testesen', 'Test@gmail.com', 'passord123');
+INSERT INTO Bruker VALUES (2, 'Test2', 'Testesen2', 'Test2@gmail.com', 'passord1');
+
+INSERT INTO Gaard VALUES (1, 1500, 'Nombre de Dios', 'El Salvador', 'Santa Ana');
+INSERT INTO Gaard VALUES (2, 700, 'Rwandias', 'Rwanda', 'Butare');
+INSERT INTO Gaard VALUES (3, 200, 'Colombos', 'Colombia', 'Meta');
+
+
+INSERT INTO Foredlingsmetode VALUES (1, 'bærtørket Bourbon', 'gir fyldig smak' );
+INSERT INTO Foredlingsmetode VALUES (2, 'vasket', 'gjør kaffen svakere');
+
+INSERT INTO Kaffebrenneri VALUES (1, 'Jacobsen & Svart', 'Trondheim');
+INSERT INTO Kaffebrenneri VALUES (2, 'HovedBrenneriet ', 'Oslo');
+INSERT INTO Kaffebrenneri VALUES (3, 'Pomple&Pilt ', 'Kristiansand');
+
+
+INSERT INTO Kaffebonne VALUES (1, 'arabica');
+INSERT INTO Kaffebonne VALUES (2, 'robsta');
+INSERT INTO Kaffebonne VALUES (3, 'liberica');
+
+INSERT INTO Kaffeparti VAlUES (1, 2021, 8, 1, 1);
+INSERT INTO Kaffeparti VAlUES (2, 2022, 10, 2, 2);
+INSERT INTO Kaffeparti VAlUES (3, 2022, 9, 3, 1);
+INSERT INTO Kaffeparti VAlUES (4, 2020, 7, 2, 1);
+INSERT INTO Kaffeparti VAlUES (5, 2021, 9, 2, 2);
+
+INSERT INTO Kaffe VALUES (1, 'Lysbrent', 20, 01, 2022, 'Vinterkaffe 2022', 'En velsmakende og kompleks kaffe for
+mørketiden', 600, 1, 1 );
+INSERT INTO Kaffe VALUES (2, 'Medium', 18, 03, 2022, 'Spesialiteten', 'En god og fyldig kaffe', 550, 2, 2 );
+INSERT INTO Kaffe VALUES (3, 'Lys', 23, 04, 2021, '2022 favoritt', 'Mye aroma og veldig floral', 300, 3, 1 );
+INSERT INTO Kaffe VALUES (4, 'Medium', 03, 10, 2020, 'Costa de kaffe', 'Laget med kjærlighet og tålmodighet', 700, 4, 3 );
+INSERT INTO Kaffe VALUES (5, 'Mørk', 21, 01, 2021, 'Fantsic', 'Godt brent og mye smak', 650, 5, 1 );
+
+
+INSERT INTO Kaffesmak VALUES (1, 'Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!»', 
+10, 01, 10, 2022, 1, 1 );
+
+INSERT INTO Kaffesmak VALUES(2, 'Ekstremt floral', 8, 30, 01, 2022, 1, 2);
+INSERT INTO Kaffesmak VALUES(3, 'Floral som en blomstereng', 6, 27, 02, 2021, 2, 3);
+INSERT INTO Kaffesmak VALUES(4, 'Mest fantastiske jeg har smakt noen gang', 10, 22, 11, 2020, 2, 4);
+INSERT INTO Kaffesmak VALUES(5, 'Stor på smak men litt mye', 5, 23, 02, 2022, 1, 3);
