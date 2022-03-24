@@ -1,3 +1,4 @@
+from datetime import datetime
 from distutils.command.sdist import sdist
 from re import L
 import sqlite3
@@ -12,8 +13,14 @@ cursor = con.cursor()
 #User story 1 completed
 #User story 2 completed
 #User story 3 completed
-#User story 4 NOT completed
+#User story 4 completed
 #User story 5 NOT completed
+
+#TODO:
+#Need to finish US5
+#Need to debug and tidy
+#Finish writing document
+#Adding dummy data and check again. (Clean database)
 
 
 #The home menu. It shows you the available actions and how to access them.
@@ -183,12 +190,12 @@ def login():
                 email = input('E-postadresse: ')
                 password = input('Passord: ')
                 global current_user
-                cursor.execute("SELECT BrukerId FROM Bruker WHERE Epost = ? ", (email,))
+                cursor.execute("SELECT BrukerId FROM Bruker WHERE Epost = ? AND Passord = ? ", (email, password,))
                 current_user = cursor.fetchone()[0]
                 state = False
             except TypeError:
-                sign_up = input("Not a registered user. Do you want to sign up (y/n)")
-                if(sign_up == 'y'):
+                sign_up = input("Ikke registrert deg? Ønsker du å registrere deg (j/n)")
+                if(sign_up == 'j'):
                     state = False
                     signup()
 
@@ -213,29 +220,50 @@ def signup():
     con.commit()
     print("\n")
 
-#We have to have a restriction on day month and year.
+#Extra validation for date:
 def validate_date(day, month, year):
-    print("TODO")
+    date = (str(year) + '-' + str(month) + '-' + str(day))
+
+    try:
+        datetime.strptime(date, "%Y-%m-%d")
+
+    except ValueError:
+         raise Exception("Wrong date format")
 
 
 def coffee_tastying(): 
     print("Registrer kaffesmakingen din")
-    coffee_name = input('Kaffe navn: ')
-    coffee_description = input('Beskrivelse: ')
-    coffee_score = int(input('Poengsum (1-10): '))
-    coffee_distillery = input('Kaffebrenneri: ')
-    coffee_tastying_day = int(input('Smaksdag (dd): '))
-    coffee_tastying_month = int(input('Smaksmåned (mm): '))
-    coffee_tastying_year = int(input('Smaksår (yyyy): '))
-    cursor.execute("SELECT MAX(SmakId) FROM KaffeSmak")
-    lastId = cursor.fetchone()[0] +1
-    cursor.execute("SELECT BrenneriId FROM Kaffebrenneri WHERE Navn = ?", (coffee_distillery,))
-    coffee_distillery_id = cursor.fetchone()[0]
-    cursor.execute("SELECT KaffeId FROM Kaffe WHERE Navn = ? AND BrenneriId = ? ", (coffee_name, coffee_distillery_id,))
-    coffee_id = cursor.fetchone()[0]
-  
-    cursor.execute('''INSERT INTO kaffesmak(SmakId, Notater, Poeng, Dag, Maaned, Aar, BrukerId, KaffeId) VALUES (?,?, ?,?,?,?,?,?)''',(lastId, coffee_description, coffee_score, coffee_tastying_day, coffee_tastying_month, coffee_tastying_year, current_user, coffee_id))
-    con.commit()
+
+    try:
+        coffee_name = input('Kaffe navn: ')
+        coffee_description = input('Beskrivelse: ')
+        coffee_score = int(input('Poengsum (1-10): '))
+        coffee_distillery = input('Kaffebrenneri: ')
+
+        #Date input:
+        coffee_tastying_day = int(input('Smaksdag (dd): '))
+        coffee_tastying_month = int(input('Smaksmåned (mm): '))
+        coffee_tastying_year = int(input('Smaksår (yyyy): '))
+
+        #Validering av dato:
+        validate_date(coffee_tastying_day, coffee_tastying_month, coffee_tastying_year)
+        
+
+        cursor.execute("SELECT MAX(SmakId) FROM KaffeSmak")
+        lastId = cursor.fetchone()[0] +1
+        cursor.execute("SELECT BrenneriId FROM Kaffebrenneri WHERE Navn = ?", (coffee_distillery,))
+        coffee_distillery_id = cursor.fetchone()[0]
+        cursor.execute("SELECT KaffeId FROM Kaffe WHERE Navn = ? AND BrenneriId = ? ", (coffee_name, coffee_distillery_id,))
+        coffee_id = cursor.fetchone()[0]
+    
+        cursor.execute('''INSERT INTO kaffesmak(SmakId, Notater, Poeng, Dag, Maaned, Aar, BrukerId, KaffeId) VALUES (?,?, ?,?,?,?,?,?)''',(lastId, coffee_description, coffee_score, coffee_tastying_day, coffee_tastying_month, coffee_tastying_year, current_user, coffee_id))
+        con.commit()
+
+        print('\nDitt innlegg ble registrert.\n')
+
+    except Exception:
+        print("\nDitt innlegg ble ikke registrert. Sjekk at du har gyldig dato(dd,mm,yyyy), kaffenavn, kaffebrenneri og poengsum.\n")
+        
 
 def main():
     login()
