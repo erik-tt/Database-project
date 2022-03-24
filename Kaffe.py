@@ -152,7 +152,10 @@ def filter():
     elif(choice == "2"):
         #Userstory 5
         method = input("Hvilken metode ønsker du at ikke skal være brukt? \n")
-        country1, country2 = input("Du kan velge to land du ønsker kaffen skal være fra \n: ").split()
+        print("Du kan velge to land du ønsker kaffen skal være fra \n: ")
+        country1 = input("Første landet:\n ")
+        country2 = input("Andre landet:\n ")
+    
 
         #Has a str error. Think maybe the input on countries must be done differently
         #Filtering away method is not done and must be
@@ -161,7 +164,7 @@ def filter():
                         INNER JOIN Foredlingsmetode ON Kaffeparti.MetodeId = Foredlingsmetode.MetodeId
                         INNER JOIN Kaffe ON Kaffe.PartiId = Kaffe.PartiId
                         INNER JOIN Kaffebrenneri ON Kaffebrenneri.BrenneriId = Kaffe.BrenneriId
-                        Where Foredlingsmetode.Navn NOT IN (?) AND (Land = ? OR Land = ?)""", (method, country1, country2 ))
+                        Where Foredlingsmetode.Navn NOT LIKE ? AND (Land = ? OR Land = ?)""", (method, country1, country2 ))
 
         data = cursor.fetchall()
 
