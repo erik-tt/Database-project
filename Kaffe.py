@@ -218,7 +218,7 @@ def signup():
     con.commit()
     print("\n")
 
-#Extra validation for date:
+#Validation for date:
 def validate_date(day, month, year):
     date = (str(year) + '-' + str(month) + '-' + str(day))
 
@@ -226,7 +226,7 @@ def validate_date(day, month, year):
         datetime.strptime(date, "%Y-%m-%d")
 
     except ValueError:
-         raise Exception("Wrong date format")
+         raise Exception("Ugylding dato")
 
 
 def coffee_tastying(): 
