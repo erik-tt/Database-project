@@ -56,9 +56,9 @@ def menu():
 
 
 def coffee_stats():
-    #Print should maybe be more symmertrical
+
     
-    seperator = "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+    seperator = "\n------------------------------------------------------------------------------------------------------\n"
 
     print(seperator)
     print("\nVelkommen til kaffestikk\nHer kan du hente ut statestikk om din og andre sitt kaffekonsum \n")
@@ -119,7 +119,7 @@ def coffee_stats():
 
 def filter():
      
-    seperator = "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+    seperator = "\n------------------------------------------------------------------------------------------------------\n"
 
     print(seperator)
 
@@ -150,13 +150,13 @@ def filter():
 
 
     elif(choice == "2"):
-        #Userstory 5
+       
         method = input("Hvilken metode ønsker du at ikke skal være brukt? \n")
         print("Du kan velge to land du ønsker kaffen skal være fra \n: ")
         country1 = input("Første landet:\n ")
         country2 = input("Andre landet:\n ")
     
-
+        #User story 5
         #Has a str error. Think maybe the input on countries must be done differently
         #Filtering away method is not done and must be
         cursor.execute("""SELECT DISTINCT Kaffebrenneri.Navn AS Brennerinavn,  Kaffe.Navn AS Kaffenavn
@@ -236,6 +236,7 @@ def coffee_tastying():
     print("Registrer kaffesmakingen din")
 
     try:
+        #User input as described in user story 1:
         coffee_name = input('Kaffe navn: ')
         coffee_description = input('Beskrivelse: ')
         coffee_score = int(input('Poengsum (1-10): '))
@@ -256,7 +257,8 @@ def coffee_tastying():
         coffee_distillery_id = cursor.fetchone()[0]
         cursor.execute("SELECT KaffeId FROM Kaffe WHERE Navn = ? AND BrenneriId = ? ", (coffee_name, coffee_distillery_id,))
         coffee_id = cursor.fetchone()[0]
-    
+
+        #User story 1:
         cursor.execute('''INSERT INTO kaffesmak(SmakId, Notater, Poeng, Dag, Maaned, Aar, BrukerId, KaffeId) VALUES (?,?, ?,?,?,?,?,?)''',(lastId, coffee_description, coffee_score, coffee_tastying_day, coffee_tastying_month, coffee_tastying_year, current_user, coffee_id))
         con.commit()
 
