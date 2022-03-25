@@ -61,9 +61,9 @@ def coffee_stats():
 
         #User story 2
         cursor.execute("""
-        SELECT Fornavn, Etternavn, COUNT(DISTINCT Kaffe.kaffeId) AS AntallUnikeKaffer 
+        SELECT Fornavn, Etternavn, COUNT(DISTINCT Kaffe.KaffeId) AS AntallUnikeKaffer 
         FROM Bruker NATURAL JOIN Kaffesmak 
-        INNER JOIN Kaffe ON (kaffesmak.kaffeId = kaffe.kaffeId)
+        INNER JOIN Kaffe ON (Kaffesmak.KaffeId = Kaffe.KaffeId)
         WHERE Kaffesmak.Aar = ? 
         GROUP BY BrukerId
         ORDER BY AntallUnikeKaffer DESC""", (year,))
@@ -81,8 +81,8 @@ def coffee_stats():
     elif (choice == "2"):
 
         #User story 3
-        cursor.execute("""SELECT Kaffebrenneri.navn AS Brennerinavn, Kaffe.navn AS Kaffenavn, Kilopris, AVG(Kilopris/Poeng) AS Gjennomsnittscore 
-        FROM Kaffesmak INNER JOIN Kaffe ON (Kaffesmak.kaffeId = Kaffe.KaffeId) 
+        cursor.execute("""SELECT Kaffebrenneri.Navn AS Brennerinavn, KaffeNnavn AS Kaffenavn, Kilopris, AVG(Kilopris/Poeng) AS Gjennomsnittscore 
+        FROM Kaffesmak INNER JOIN Kaffe ON (Kaffesmak.KaffeId = Kaffe.KaffeId) 
         INNER JOIN Kaffebrenneri ON (Kaffe.BrenneriId = Kaffebrenneri.BrenneriId) 
 		GROUP BY Kaffe.Navn
         ORDER BY Gjennomsnittscore DESC""")
