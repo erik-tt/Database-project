@@ -63,8 +63,10 @@ def coffee_stats():
         cursor.execute("""
         SELECT Fornavn, Etternavn, COUNT(DISTINCT Kaffe.kaffeId) AS AntallUnikeKaffer 
         FROM Bruker NATURAL JOIN Kaffesmak 
-        INNER JOIN Kaffe ON (kaffesmak.kaffeId == kaffe.kaffeId) 
-        WHERE Kaffesmak.Aar = ? ORDER BY AntallUnikeKaffer DESC""", (year,))
+        INNER JOIN Kaffe ON (kaffesmak.kaffeId = kaffe.kaffeId)
+        WHERE Kaffesmak.Aar = ? 
+        GROUP BY BrukerId
+        ORDER BY AntallUnikeKaffer DESC""", (year,))
 
         data1 = cursor.fetchall()
 
