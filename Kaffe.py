@@ -9,19 +9,6 @@ from warnings import catch_warnings
 con = sqlite3.connect("Kaffe.db")
 cursor = con.cursor()
 
-#Product backlog:
-#User story 1 completed
-#User story 2 completed
-#User story 3 completed
-#User story 4 completed
-#User story 5 NOT completed
-
-#TODO:
-#Need to finish US5
-#Need to debug and tidy
-#Finish writing document
-#Adding dummy data and check again. (Clean database)
-
 
 #The home menu. It shows you the available actions and how to access them.
 def menu():
