@@ -25,7 +25,7 @@ CREATE TABLE Kaffesmak (
 
 CREATE TABLE Kaffe (
    KaffeId    INTEGER NOT NULL UNIQUE,
-   Brenningsgrad  VARCHAR(30),
+   Brenningsgrad  VARCHAR(30) CHECK(Brenningsgrad = 'Lys' OR Brenningsgrad = 'Medium' OR Brenningsgrad = 'Mørk'),
    Dag     INTEGER(2),
    Maaned  INTEGER(2),
    Aar INTEGER(4),
@@ -128,7 +128,7 @@ INSERT INTO Kaffeparti VAlUES (3, 2022, 9, 3, 1);
 INSERT INTO Kaffeparti VAlUES (4, 2020, 7, 2, 1);
 INSERT INTO Kaffeparti VAlUES (5, 2021, 9, 2, 2);
 
-INSERT INTO Kaffe VALUES (1, 'Lysbrent', 20, 01, 2022, 'Vinterkaffe 2022', 'En velsmakende og kompleks kaffe for
+INSERT INTO Kaffe VALUES (1, 'Lys', 20, 01, 2022, 'Vinterkaffe 2022', 'En velsmakende og kompleks kaffe for
 mørketiden', 600, 1, 1 );
 INSERT INTO Kaffe VALUES (2, 'Medium', 18, 03, 2022, 'Spesialiteten', 'En god og fyldig kaffe', 550, 2, 2 );
 INSERT INTO Kaffe VALUES (3, 'Lys', 23, 04, 2021, '2022 favoritt', 'Mye aroma og veldig floral', 300, 3, 1 );
