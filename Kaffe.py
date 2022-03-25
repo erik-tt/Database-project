@@ -81,7 +81,7 @@ def coffee_stats():
     elif (choice == "2"):
 
         #User story 3
-        cursor.execute("""SELECT Kaffebrenneri.Navn AS Brennerinavn, KaffeNnavn AS Kaffenavn, Kilopris, AVG(Kilopris/Poeng) AS Gjennomsnittscore 
+        cursor.execute("""SELECT Kaffebrenneri.Navn AS Brennerinavn, Kaffe.Navn AS Kaffenavn, Kilopris, AVG(Poeng*1000/Kilopris) AS Gjennomsnittscore 
         FROM Kaffesmak INNER JOIN Kaffe ON (Kaffesmak.KaffeId = Kaffe.KaffeId) 
         INNER JOIN Kaffebrenneri ON (Kaffe.BrenneriId = Kaffebrenneri.BrenneriId) 
 		GROUP BY Kaffe.Navn
