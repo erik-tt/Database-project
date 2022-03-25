@@ -130,7 +130,7 @@ def filter():
         
         print("\nEn liste med brennerinavn og kaffenavn for hver kaffe:\n")
         
-        print("Brennnerinavn | Kaffenavn")
+        print("Brennnerinavn | Kaffenavn\n")
         for row in data:
             print(str(row[0]) + ' | ' + str(row[1]))
             print("\n")
@@ -149,9 +149,9 @@ def filter():
         cursor.execute("""SELECT DISTINCT Kaffebrenneri.Navn AS Brennerinavn,  Kaffe.Navn AS Kaffenavn
                         FROM Gaard INNER JOIN Kaffeparti ON Kaffeparti.GaardId = Gaard.GaardId
                         INNER JOIN Foredlingsmetode ON Kaffeparti.MetodeId = Foredlingsmetode.MetodeId
-                        INNER JOIN Kaffe ON Kaffe.PartiId = Kaffe.PartiId
+                        INNER JOIN Kaffe ON Kaffeparti.PartiId = Kaffe.PartiId
                         INNER JOIN Kaffebrenneri ON Kaffebrenneri.BrenneriId = Kaffe.BrenneriId
-                        Where Foredlingsmetode.Navn NOT LIKE ? AND (Land = ? OR Land = ?)""", (method, country1, country2 ))
+                        Where NOT Foredlingsmetode.Navn = ? AND (Land = ? OR Land = ?)""", (method, country1, country2 ))
 
         data = cursor.fetchall()
 
