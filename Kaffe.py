@@ -21,7 +21,7 @@ def menu():
 
     while(True):
         print(info)
-        menuchoice = input('Skriv inn et tall fra 1-4 med ønskelig handling ')
+        menuchoice = input('Skriv inn et tall fra 1-4 med ønskelig handling\n ')
 
         if (menuchoice == '1'):
             coffee_tastying()
@@ -57,7 +57,7 @@ def coffee_stats():
     
     
     if (choice == '1'):
-        year = int(input("Hvilket år vil du se statistikk fra? "))
+        year = int(input("Hvilket år vil du se statistikk fra?\n "))
 
         #User story 2
         cursor.execute("""
@@ -71,7 +71,7 @@ def coffee_stats():
         data1 = cursor.fetchall()
 
         print ("\nEn tabell over antall unike kaffer smakt i " + str(year) +": \n")
-        print("Fornavn | Etternavn | Antall unike kaffer" )
+        print("Fornavn | Etternavn | Antall unike kaffer\n" )
         
         for row in data1:
             print(str(row[0]) + ' | ' + str(row[1]) + ' | ' + str(row[2]))
@@ -91,7 +91,7 @@ def coffee_stats():
         
         print("\nEn liste med brennerinavn, kaffenavn, pris og gjennomsnittscore for hver kaffe:\n")
 
-        print("Brennnerinavn | Kaffenavn | Kilopris | Gjennomsnittscore")
+        print("Brennnerinavn | Kaffenavn | Kilopris | Gjennomsnittscore\n")
         for row in data:
             print(str(row[0]) + ' | ' + str(row[1]) + ' | ' + str(row[2]) + ' | ' + str(row[3]))
         
