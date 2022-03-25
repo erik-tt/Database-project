@@ -136,10 +136,8 @@ INSERT INTO Kaffe VALUES (4, 'Medium', 03, 10, 2020, 'Costa de kaffe', 'Laget me
 INSERT INTO Kaffe VALUES (5, 'Mørk', 21, 01, 2021, 'Fantsic', 'Godt brent og mye smak', 650, 5, 1 );
 
 
-INSERT INTO Kaffesmak VALUES (1, 'Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!»', 
-10, 01, 10, 2022, 1, 1 );
 
-INSERT INTO Kaffesmak VALUES(2, 'Ekstremt floral', 8, 30, 01, 2022, 1, 2);
-INSERT INTO Kaffesmak VALUES(3, 'Floral som en blomstereng', 6, 27, 02, 2021, 2, 3);
-INSERT INTO Kaffesmak VALUES(4, 'Mest fantastiske jeg har smakt noen gang', 10, 22, 11, 2020, 2, 4);
-INSERT INTO Kaffesmak VALUES(5, 'Stor på smak men litt mye', 5, 23, 02, 2022, 1, 3);
+INSERT INTO Kaffesmak VALUES(1, 'Ekstremt floral', 8, 30, 01, 2022, 1, 2);
+INSERT INTO Kaffesmak VALUES(2, 'Floral som en blomstereng', 6, 27, 02, 2021, 2, 3);
+INSERT INTO Kaffesmak VALUES(3, 'Mest fantastiske jeg har smakt noen gang', 10, 22, 11, 2020, 2, 4);
+INSERT INTO Kaffesmak VALUES(4, 'Stor på smak men litt mye', 5, 23, 02, 2022, 1, 3);
