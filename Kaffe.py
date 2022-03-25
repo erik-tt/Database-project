@@ -92,11 +92,11 @@ def coffee_stats():
     elif (choice == "2"):
 
         #User story 3
-        cursor.execute("""
-        SELECT Kaffebrenneri.navn AS Brennerinavn, Kaffe.navn AS Kaffenavn, Kilopris, AVG(Poeng) AS Gjennomsnittscore 
+        cursor.execute("""SELECT Kaffebrenneri.navn AS Brennerinavn, Kaffe.navn AS Kaffenavn, Kilopris, AVG(Kilopris/Poeng) AS Gjennomsnittscore 
         FROM Kaffesmak INNER JOIN Kaffe ON (Kaffesmak.kaffeId = Kaffe.KaffeId) 
         INNER JOIN Kaffebrenneri ON (Kaffe.BrenneriId = Kaffebrenneri.BrenneriId) 
-        ORDER BY Gjennomsnittscore DESC, Kilopris ASC""")
+		GROUP BY Kaffe.Navn
+        ORDER BY Gjennomsnittscore DESC""")
 
         data = cursor.fetchall()
         
