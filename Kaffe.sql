@@ -82,7 +82,7 @@ CREATE TABLE Gaard (
 
 CREATE TABLE Kaffebonne (
    BonneId INTEGER NOT NULL UNIQUE,
-   Art VARCHAR(30) NOT NULL,
+   Art VARCHAR(30) CHECK(Art = 'coffea arabica' OR Art = 'coffea robusta' OR Art='coffea liberica') NOT NULL ,
    CONSTRAINT Kaffebonne_PK PRIMARY Key (BonneId),
    CONSTRAINT Kaffebonne_FK FOREIGN Key (Art) REFERENCES Art(Navn)
             ON UPDATE CASCADE
@@ -118,9 +118,9 @@ INSERT INTO Kaffebrenneri VALUES (2, 'HovedBrenneriet ', 'Oslo');
 INSERT INTO Kaffebrenneri VALUES (3, 'Pomple&Pilt ', 'Kristiansand');
 
 
-INSERT INTO Kaffebonne VALUES (1, 'arabica');
-INSERT INTO Kaffebonne VALUES (2, 'robsta');
-INSERT INTO Kaffebonne VALUES (3, 'liberica');
+INSERT INTO Kaffebonne VALUES (1, 'coffea arabica');
+INSERT INTO Kaffebonne VALUES (2, 'coffea robusta');
+INSERT INTO Kaffebonne VALUES (3, 'coffea liberica');
 
 INSERT INTO Kaffeparti VAlUES (1, 2021, 8, 1, 1);
 INSERT INTO Kaffeparti VAlUES (2, 2022, 10, 2, 2);
@@ -141,3 +141,6 @@ INSERT INTO Kaffesmak VALUES(1, 'Ekstremt floral', 8, 30, 01, 2022, 1, 2);
 INSERT INTO Kaffesmak VALUES(2, 'Floral som en blomstereng', 6, 27, 02, 2021, 2, 3);
 INSERT INTO Kaffesmak VALUES(3, 'Mest fantastiske jeg har smakt noen gang', 10, 22, 11, 2020, 2, 4);
 INSERT INTO Kaffesmak VALUES(4, 'Stor på smak men litt mye', 5, 23, 02, 2022, 1, 3);
+INSERT INTO Kaffesmak VALUES(5, 'Ikke veldig god', 3, 24, 10, 2022, 2, 2);
+
+
